@@ -1,0 +1,6 @@
+@MockQuestAPI_HostAddress = http://localhost:5231
+
+GET {{MockQuestAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
