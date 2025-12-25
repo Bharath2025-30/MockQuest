@@ -1,10 +1,27 @@
+using Microsoft.EntityFrameworkCore;
 using MockQuestAPI.Configurations;
+using MockQuestAPI.Data;
+using MockQuestAPI.Entities;
+using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+.AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+});
 
-builder.Services.AddControllers();
+// MongoDB Service Configuration
+var mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>()!;
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseMongoDB(mongoDbSettings.AtlasURI!,mongoDbSettings.DatabaseName!);
+});
+
 // ApplicationServices
 builder.Services.AddApplicationServices();
 
