@@ -1,18 +1,26 @@
+using Microsoft.AspNetCore.HostFiltering;
 using Microsoft.EntityFrameworkCore;
 using MockQuestAPI.Configurations;
 using MockQuestAPI.Data;
 using MockQuestAPI.Entities;
 using Newtonsoft.Json.Serialization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
-options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-.AddNewtonsoftJson(options =>
-{
-    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-});
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+        // Use CamelCase instead of DefaultContractResolver (which uses PascalCase)
+        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+    })
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    });
 
 // MongoDB Service Configuration
 var mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>()!;
@@ -38,7 +46,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("MockQuestCorsPolicy", poilicyBuilder =>
     {
-        poilicyBuilder.WithOrigins("http://localhost:5173");
+        // Added ngrok public URL - TODO : Need to remove this after development
+        poilicyBuilder.WithOrigins("http://localhost:5173/", " https://inconvincible-ally-wilton.ngrok-free.dev/");
         poilicyBuilder.AllowAnyHeader();
         poilicyBuilder.AllowAnyMethod();
         poilicyBuilder.AllowCredentials();
@@ -58,6 +67,17 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    // TODO: Need to remove this after development
+    // Add this middleware to handle ngrok hostname
+    app.Use(async (context, next) =>
+    {
+        // Accept any host in development
+        if (context.Request.Headers.ContainsKey("X-Forwarded-Host"))
+        {
+            context.Request.Host = new HostString(context.Request.Headers["X-Forwarded-Host"]);
+        }
+        await next();
+    });
 }
 
 app.UseRouting();

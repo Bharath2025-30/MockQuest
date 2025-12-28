@@ -12,6 +12,8 @@ namespace MockQuestAPI.Configurations
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IClerkWebhookService, ClerkWebhookService>();
+            services.AddScoped<IStreamService, StreamService>();
             return services;
         }
     }
