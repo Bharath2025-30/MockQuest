@@ -1,6 +1,6 @@
 import { type VariantProps } from "class-variance-authority";
 import { Menu } from "lucide-react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -13,6 +13,7 @@ import {
 } from "../../ui/navbar";
 import Navigation from "../../ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
+import { SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from "@clerk/clerk-react";
 
 interface NavbarLink {
   text: string;
@@ -77,6 +78,13 @@ export default function Navbar({
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarLeft>
           <NavbarRight>
+            <SignedOut>
+              <SignInButton mode="modal"/>
+            </SignedOut>
+            <SignedIn>
+              <SignOutButton/>
+            </SignedIn>
+            <UserButton/>
             {actions.map((action, index) =>
               action.isButton ? (
                 <Button

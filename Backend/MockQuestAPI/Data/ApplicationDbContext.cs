@@ -7,6 +7,7 @@ namespace MockQuestAPI.Data
     {
         //DbSets
         public DbSet<Department> Departments { get; set; }
+        public DbSet<User> Users { get; set; }
 
         //Constructor
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
@@ -18,6 +19,10 @@ namespace MockQuestAPI.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Department>();
+            #region User
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(u => u.ClerkId).IsUnique();
+            #endregion
         }
     }
 }
