@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MockQuestAPI.Entities;
 using MockQuestAPI.ServiceContracts;
@@ -9,6 +10,7 @@ namespace MockQuestAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class HomeController : ControllerBase
     {
         private readonly IConfiguration _configuration;
