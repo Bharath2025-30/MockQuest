@@ -1,6 +1,5 @@
 ﻿using MockQuestAPI.ServiceContracts;
 using MockQuestAPI.Services;
-using System.Runtime.CompilerServices;
 
 namespace MockQuestAPI.Configurations
 {
@@ -14,6 +13,7 @@ namespace MockQuestAPI.Configurations
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IClerkWebhookService, ClerkWebhookService>();
             services.AddScoped<IStreamService, StreamService>();
+            services.AddScoped<ISessionService, SessionService>();
             return services;
         }
     }
