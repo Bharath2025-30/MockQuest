@@ -1,4 +1,5 @@
-﻿using MockQuestAPI.Entities.Stream;
+﻿using MockQuestAPI.DTO_s.Requests;
+using MockQuestAPI.Entities.Stream;
 
 namespace MockQuestAPI.ServiceContracts
 {
@@ -6,6 +7,10 @@ namespace MockQuestAPI.ServiceContracts
     {
         Task UpsertUser(StreamUser user);
         Task DeleteUser(string userId);
-        //TODO: Need to create another method to GenerateToken
+        Task CreateVideoSession(CreateSessionReqDto createSessionReqDto, Guid sessionId, string callId);
+        Task CreateChatChannel(string callId, string clerkId);
+        Task AddMembers(string callId, string clerkId);
+        Task DeleteChatChannel(string callId);
+        Task DeleteVideoSession(string callId, string clerkId);
     }
 }
