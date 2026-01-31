@@ -11,6 +11,7 @@ import Glow from "../../ui/glow";
 import { Mockup, MockupFrame } from "../../ui/mockup";
 import Screenshot from "../../ui/screenshot";
 import { Section } from "../../ui/section";
+import { SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from "@clerk/clerk-react";
 
 interface HeroButtonProps {
   href: string;
@@ -30,8 +31,8 @@ interface HeroProps {
 }
 
 export default function Hero({
-  title = "Give your big idea the design it deserves",
-  description = "Professionally designed blocks and templates built with React, Shadcn/ui and Tailwind that will help your product stand out.",
+  title = "Ace Your Confidence, Unlock Every Opportunity",
+  description = "Ultimate platform for collaborative coding and pair programming. Code in real time and ace your interviews. Powerful features to make your coding interviews seamless and productive",
   mockup = (
     <Screenshot
       srcLight="/dashboard-light.png"
@@ -45,9 +46,9 @@ export default function Hero({
   badge = (
     <Badge variant="outline" className="animate-appear">
       <span className="text-muted-foreground">
-        New version of Launch UI is out!
+        Real-time Collaboration
       </span>
-      <a href="https://www.launchuicomponents.com/" className="flex items-center gap-1">
+      <a href="" className="flex items-center gap-1">
         Get started
         <ArrowRightIcon className="size-3" />
       </a>
@@ -55,15 +56,9 @@ export default function Hero({
   ),
   buttons = [
     {
-      href: "https://www.launchuicomponents.com/",
-      text: "Get Started",
+      href: "",
+      text: "Start Coding Now",
       variant: "default",
-    },
-    {
-      href: "https://www.launchuicomponents.com/",
-      text: "Github",
-      variant: "glow",
-      icon: <Github className="mr-2 size-4" />,
     },
   ],
   className,
@@ -87,18 +82,33 @@ export default function Hero({
           {buttons !== false && buttons.length > 0 && (
             <div className="animate-appear relative z-10 flex justify-center gap-4 opacity-0 delay-300">
               {buttons.map((button, index) => (
-                <Button
-                  key={index}
-                  variant={button.variant || "default"}
-                  size="lg"
-                  asChild
-                >
-                  <a href={button.href}>
-                    {button.icon}
-                    {button.text}
-                    {button.iconRight}
-                  </a>
-                </Button>
+                <>
+                  <SignedOut>
+                    <SignInButton mode="modal">
+                      <Button
+                      key={index}
+                      variant="default"
+                      size="lg"
+                    >
+                      Get Started
+                    </Button>
+                    </SignInButton>
+                  </SignedOut>
+                  <SignedIn>
+                    <Button
+                      key={index}
+                      variant={button.variant || "default"}
+                      size="lg"
+                      asChild
+                    >
+                      <a href={button.href}>
+                        {button.icon}
+                        {button.text}
+                        {button.iconRight}
+                      </a>
+                    </Button>
+                  </SignedIn>
+                </>
               ))}
             </div>
           )}

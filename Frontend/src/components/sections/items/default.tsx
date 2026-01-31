@@ -8,7 +8,7 @@ import {
   ScanFaceIcon,
   SquarePenIcon,
 } from "lucide-react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Item, ItemDescription,ItemIcon, ItemTitle } from "../../ui/item";
 import { Section } from "../../ui/section";
@@ -28,50 +28,47 @@ interface ItemsProps {
 export default function Items({
   title = "Everything you need. Nothing you don't.",
   items = [
-    {
-      title: "Accessibility first",
-      description: "Fully WCAG 2.0 compliant, made with best a11y practices",
-      icon: <ScanFaceIcon className="size-5 stroke-1" />,
-    },
-    {
-      title: "Responsive design",
-      description: "Looks and works great on any device and screen size",
-      icon: <MonitorSmartphoneIcon className="size-5 stroke-1" />,
-    },
-    {
-      title: "Light and dark mode",
-      description:
-        "Seamless switching between color schemes, 6 themes included",
-      icon: <EclipseIcon className="size-5 stroke-1" />,
-    },
-    {
-      title: "Easy to customize",
-      description: "Flexible options to match your product or brand",
-      icon: <BlocksIcon className="size-5 stroke-1" />,
-    },
-    {
-      title: "Top-level performance",
-      description: "Made for lightning-fast load times and smooth interactions",
-      icon: <FastForwardIcon className="size-5 stroke-1" />,
-    },
-    {
-      title: "Production ready",
-      description: "Thoroughly tested and launch-prepared",
-      icon: <RocketIcon className="size-5 stroke-1" />,
-    },
-    {
-      title: "Made for localisation",
-      description:
-        "Easy to implement support for multiple languages and regions",
-      icon: <LanguagesIcon className="size-5 stroke-1" />,
-    },
-    {
-      title: "CMS friendly",
-      description:
-        "Built to work with your any headless content management system",
-      icon: <SquarePenIcon className="size-5 stroke-1" />,
-    },
-  ],
+  {
+    title: "Crystal-clear video calls",
+    description: "HD video conferencing for smooth and professional interview experiences",
+    icon: <ScanFaceIcon className="size-5 stroke-1" />,
+  },
+  {
+    title: "Live code editor",
+    description: "Collaborative coding in real time with built-in compiler support",
+    icon: <SquarePenIcon className="size-5 stroke-1" />,
+  },
+  {
+    title: "Easy collaboration",
+    description: "Pair programming, instant chat, and interactive reactions",
+    icon: <BlocksIcon className="size-5 stroke-1" />,
+  },
+  {
+    title: "AI assistance",
+    description: "Smart interview guidance with instant feedback and insights.",
+    icon: <LanguagesIcon className="size-5 stroke-1" />,
+  },
+  {
+    title: "Top-level performance",
+    description: "Optimized for lightning-fast load times and seamless interactions",
+    icon: <FastForwardIcon className="size-5 stroke-1" />,
+  },
+  {
+    title: "Responsive design",
+    description: "Works flawlessly across all devices and screen sizes",
+    icon: <MonitorSmartphoneIcon className="size-5 stroke-1" />,
+  },
+  {
+    title: "Flexible themes",
+    description: "Effortless switching between light and dark modes for comfort",
+    icon: <EclipseIcon className="size-5 stroke-1" />,
+  },
+  {
+    title: "Frequent updates",
+    description: "Regular improvements to ensure a seamless and reliable experience",
+    icon: <RocketIcon className="size-5 stroke-1" />,
+  },
+],
   className,
 }: ItemsProps) {
   return (

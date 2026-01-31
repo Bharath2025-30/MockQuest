@@ -1,10 +1,7 @@
 import { type VariantProps } from "class-variance-authority";
 import { Menu } from "lucide-react";
 import type { ReactNode } from "react";
-
 import { cn } from "@/lib/utils";
-
-import LaunchUI from "../../logos/launch-ui";
 import { Button, buttonVariants } from "../../ui/button";
 import {
   Navbar as NavbarComponent,
@@ -14,6 +11,7 @@ import {
 import Navigation from "../../ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
 import { SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from "@clerk/clerk-react";
+import MockQuest from "../../logos/mockQuest";
 
 interface NavbarLink {
   text: string;
@@ -41,19 +39,19 @@ interface NavbarProps {
 }
 
 export default function Navbar({
-  logo = <LaunchUI />,
-  name = "Launch UI",
-  homeUrl = "https://www.launchuicomponents.com/",
+  logo = <MockQuest />,
+  name = "MockQuest",
+  homeUrl = "",
   mobileLinks = [
-    { text: "Getting Started", href: "https://www.launchuicomponents.com/" },
-    { text: "Components", href: "https://www.launchuicomponents.com/" },
-    { text: "Documentation", href: "https://www.launchuicomponents.com/" },
+    { text: "Getting Started", href: "" },
+    { text: "Components", href: "" },
+    { text: "Documentation", href: "" },
   ],
   actions = [
     { text: "Sign in", href: "https://www.launchuicomponents.com/", isButton: false },
     {
       text: "Get Started",
-      href: "https://www.launchuicomponents.com/",
+      href: "",
       isButton: true,
       variant: "default",
     },
@@ -78,35 +76,36 @@ export default function Navbar({
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarLeft>
           <NavbarRight>
-            <SignedOut>
-              <SignInButton mode="modal"/>
-            </SignedOut>
-            <SignedIn>
-              <SignOutButton/>
-            </SignedIn>
-            <UserButton/>
             {actions.map((action, index) =>
               action.isButton ? (
-                <Button
-                  key={index}
-                  variant={action.variant || "default"}
-                  asChild
-                >
-                  <a href={action.href}>
-                    {action.icon}
-                    {action.text}
-                    {action.iconRight}
-                  </a>
-                </Button>
+                <>
+                  <SignedOut>
+                    <SignInButton mode="modal">
+                      <Button
+                        key={index}
+                        variant={action.variant || "default"}
+                      >
+                        {action.text}
+                      </Button>
+                    </SignInButton>
+                  </SignedOut>
+                  <SignedIn>
+                    <UserButton />
+                    <SignOutButton>
+                      <Button
+                        key={index}
+                        variant="outline"
+                      >
+                        Logout
+                      </Button>
+                    </SignOutButton>
+                  </SignedIn>
+                </>
               ) : (
-                <a
-                  key={index}
-                  href={action.href}
-                  className="hidden text-sm md:block"
-                >
-                  {action.text}
-                </a>
-              ),
+                <>
+                  {/* For other buttons or links */}
+                </>
+              )
             )}
             <Sheet>
               <SheetTrigger asChild>
