@@ -1,11 +1,12 @@
 import { type VariantProps } from "class-variance-authority";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
 import { Button, buttonVariants } from "../../ui/button";
 import Glow from "../../ui/glow";
 import { Section } from "../../ui/section";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 
 interface CTAButtonProps {
   href: string;
@@ -22,11 +23,11 @@ interface CTAProps {
 }
 
 export default function CTA({
-  title = "Start building",
+  title = "Start Grinding",
   buttons = [
     {
-      href: "https://www.launchuicomponents.com/",
-      text: "Get Started",
+      href: "",
+      text: "Start Coding Now",
       variant: "default",
     },
   ],
@@ -41,18 +42,33 @@ export default function CTA({
         {buttons !== false && buttons.length > 0 && (
           <div className="flex justify-center gap-4">
             {buttons.map((button, index) => (
-              <Button
-                key={index}
-                variant={button.variant || "default"}
-                size="lg"
-                asChild
-              >
-                <a href={button.href}>
-                  {button.icon}
-                  {button.text}
-                  {button.iconRight}
-                </a>
-              </Button>
+              <>
+                  <SignedOut>
+                    <SignInButton mode="modal">
+                      <Button
+                      key={index}
+                      variant="default"
+                      size="lg"
+                    >
+                      Get Started
+                    </Button>
+                    </SignInButton>
+                  </SignedOut>
+                  <SignedIn>
+                    <Button
+                      key={index}
+                      variant={button.variant || "default"}
+                      size="lg"
+                      asChild
+                    >
+                      <a href={button.href}>
+                        {button.icon}
+                        {button.text}
+                        {button.iconRight}
+                      </a>
+                    </Button>
+                  </SignedIn>
+                </>
             ))}
           </div>
         )}

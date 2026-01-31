@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 
 import Figma from "../../logos/figma";
@@ -18,29 +18,26 @@ interface LogosProps {
 }
 
 export default function Logos({
-  title = "Built with industry-standard tools and best practices",
+  title = "Driven by collaboration, built for success.",
   badge = (
     <Badge variant="outline" className="border-brand/30 text-brand">
-      Last updated: 1000
+      10k+ active participants
     </Badge>
   ),
   logos = [
-    <Logo key="figma" image={Figma} name="Figma" />,
-    <Logo key="react" image={React} name="React" version="19.2.1" />,
+    <Logo key="figma" image={Figma} name="Live Video Chat" />,
+    <Logo key="react" image={React} name="Code Editor" />,
     <Logo
       key="typescript"
       image={TypeScript}
-      name="TypeScript"
-      version="5.9.3"
+      name="Multi-Language"
     />,
     <Logo
       key="shadcn"
       image={ShadcnUi}
-      name="Shadcn/ui"
-      version="3.5.1"
-      badge="New"
+      name="Easy Collaboration"
     />,
-    <Logo key="tailwind" image={Tailwind} name="Tailwind" version="4.1.14" />,
+    <Logo key="tailwind" image={Tailwind} name="AI Assitance" badge="New"/>,
   ],
   className,
 }: LogosProps) {

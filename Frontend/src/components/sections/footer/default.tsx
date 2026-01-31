@@ -1,8 +1,5 @@
 import type { ReactNode } from "react";
-
 import { cn } from "@/lib/utils";
-
-import LaunchUI from "../../logos/launch-ui";
 import {
   Footer,
   FooterBottom,
@@ -10,6 +7,7 @@ import {
   FooterContent,
 } from "../../ui/footer";
 import { ModeToggle } from "../../ui/mode-toggle";
+import MockQuest from "../../logos/mockQuest";
 
 interface FooterLink {
   text: string;
@@ -32,37 +30,37 @@ interface FooterProps {
 }
 
 export default function FooterSection({
-  logo = <LaunchUI />,
-  name = "Launch UI",
+  logo = <MockQuest/>,
+  name = "Mock Quest",
   columns = [
     {
       title: "Product",
       links: [
-        { text: "Changelog", href: "https://www.launchuicomponents.com/" },
-        { text: "Documentation", href: "https://www.launchuicomponents.com/" },
+        { text: "Changelog", href: "" },
+        { text: "Documentation", href: "" },
       ],
     },
     {
       title: "Company",
       links: [
-        { text: "About", href: "https://www.launchuicomponents.com/" },
-        { text: "Careers", href: "https://www.launchuicomponents.com/" },
-        { text: "Blog", href: "https://www.launchuicomponents.com/" },
+        { text: "About", href: "" },
+        { text: "Careers", href: "" },
+        { text: "Blog", href: "" },
       ],
     },
     {
       title: "Contact",
       links: [
-        { text: "Discord", href: "https://www.launchuicomponents.com/" },
-        { text: "Twitter", href: "https://www.launchuicomponents.com/" },
-        { text: "Github", href: "https://www.launchuicomponents.com/" },
+        { text: "Discord", href: "" },
+        { text: "Twitter", href: "" },
+        { text: "Github", href: "" },
       ],
     },
   ],
   copyright = "© 2025 Mikołaj Dobrucki. All rights reserved",
   policies = [
-    { text: "Privacy Policy", href: "https://www.launchuicomponents.com/" },
-    { text: "Terms of Service", href: "https://www.launchuicomponents.com/" },
+    { text: "Privacy Policy", href: "" },
+    { text: "Terms of Service", href: "" },
   ],
   showModeToggle = true,
   className,

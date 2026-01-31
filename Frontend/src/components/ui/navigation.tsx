@@ -1,9 +1,6 @@
 import {Link} from "react-router-dom";
 import * as React from "react";
-
 import { cn } from "@/lib/utils";
-
-import LaunchUI from "../logos/launch-ui";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,6 +10,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "./navigation-menu";
+import MockQuest from "../logos/mockQuest";
 
 interface ComponentItem {
   title: string;
@@ -29,7 +27,7 @@ interface MenuItem {
 
 interface NavigationProps {
   menuItems?: MenuItem[];
-  components?: ComponentItem[];
+  features?: ComponentItem[];
   logo?: React.ReactNode;
   logoTitle?: string;
   logoDescription?: string;
@@ -48,72 +46,68 @@ export default function Navigation({
       content: "default",
     },
     {
-      title: "Components",
-      content: "components",
+      title: "Features",
+      content: "features",
     },
     {
       title: "Documentation",
       isLink: true,
-      href: "https://www.launchuicomponents.com/",
+      href: "",
     },
   ],
-  components = [
+  features = [
     {
-      title: "Alert Dialog",
-      href: "/docs/primitives/alert-dialog",
+      title: "Live Video Chat",
+      href: "",
       description:
-        "A modal dialog that interrupts the user with important content and expects a response.",
+        "Crystal-clear HD video calls that replicate real interview environments, ensuring smooth communication and professional practice.",
     },
     {
-      title: "Hover Card",
-      href: "/docs/primitives/hover-card",
+      title: "Code Editor",
+      href: "",
       description:
-        "For sighted users to preview content available behind a link.",
+        "Collaborative, real-time coding with built-in compiler support, designed for technical interviews and pair programming practice.",
     },
     {
-      title: "Progress",
-      href: "/docs/primitives/progress",
+      title: "Multi-Language",
+      href: "",
       description:
-        "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+        "Seamless support for multiple languages and regions, making it easy to prepare for interviews across the globe.",
     },
     {
-      title: "Scroll-area",
-      href: "/docs/primitives/scroll-area",
-      description: "Visually or semantically separates content.",
+      title: "Easy Collaboration",
+      href: "",
+      description:
+        "Interactive tools for pair programming, instant chat, and reactions — helping candidates and mentors work together effortlessly.",
     },
     {
-      title: "Tabs",
-      href: "/docs/primitives/tabs",
+      title: "AI Assistance",
+      href: "",
       description:
-        "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-    },
-    {
-      title: "Tooltip",
-      href: "/docs/primitives/tooltip",
-      description:
-        "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+        "Smart guidance with instant feedback, personalized tips, and adaptive support to boost confidence and performance.",
     },
   ],
-  logo = <LaunchUI />,
-  logoTitle = "Launch UI",
-  logoDescription = "Landing page template built with React, Shadcn/ui and Tailwind that you can copy/paste into your project.",
-  logoHref = "https://www.launchuicomponents.com/",
+
+  logo = <MockQuest />,
+  logoTitle = "MockQuest",
+  logoDescription = "Everything You Need to Succeed. Powerful features designed to make your coding interviews seamless and productive",
+  logoHref = "",
   introItems = [
     {
-      title: "Introduction",
-      href: "https://www.launchuicomponents.com/",
+      title: "Live Code Editor",
+      href: "",
       description:
-        "Re-usable components built using Radix UI and Tailwind CSS.",
+        "Collaborate in real-time with syntax highlighting and multi language support",
     },
     {
-      title: "Installation",
-      href: "https://www.launchuicomponents.com/",
-      description: "How to install dependencies and structure your app.",
+      title: "Easy Collaboration",
+      href: "",
+      description: "Share your screen, discuss solutions, and learn from each other in real-time.",
     },
     {
-      title: "Typography",
-      href: "https://www.launchuicomponents.com/",
-      description: "Styles for headings, paragraphs, lists...etc",
+      title: "HD Video Call",
+      href: "",
+      description: "Crystal clear video and audio for seamless communication during interviews",
     },
   ],
 }: NavigationProps) {
@@ -157,15 +151,15 @@ export default function Navigation({
                         </ListItem>
                       ))}
                     </ul>
-                  ) : item.content === "components" ? (
+                  ) : item.content === "features" ? (
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {components.map((component) => (
+                      {features.map((feature) => (
                         <ListItem
-                          key={component.title}
-                          title={component.title}
-                          href={component.href}
+                          key={feature.title}
+                          title={feature.title}
+                          href={feature.href}
                         >
-                          {component.description}
+                          {feature.description}
                         </ListItem>
                       ))}
                     </ul>

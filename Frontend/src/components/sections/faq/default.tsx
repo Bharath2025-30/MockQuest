@@ -26,119 +26,111 @@ export default function FAQ({
   title = "Questions and Answers",
   items = [
     {
-      question:
-        "Why building a great landing page is critical for your business?",
+      question: "Why is preparing with MockQuest critical for your career?",
       answer: (
         <>
           <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
-            In today&apos;s AI-driven world, standing out is harder than ever.
-            While anyone can build a product, a professional landing page makes
-            the difference between success and failure.
+            In today&apos;s competitive job market, standing out in interviews
+            is harder than ever. While anyone can apply for a role, the
+            candidates who practice effectively are the ones who succeed.
           </p>
           <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
-            Launch UI helps you ship faster without compromising on quality.
+            MockQuest helps you sharpen your skills with realistic mock
+            interviews, live coding sessions, and instant feedback — giving you
+            the confidence to perform at your best.
           </p>
         </>
       ),
     },
     {
-      question: "Why use Launch UI instead of a no-code tool?",
+      question: "Why use MockQuest instead of generic interview prep tools?",
       answer: (
         <>
           <p className="text-muted-foreground mb-4 max-w-[600px]">
-            No-code tools lock you into their ecosystem with recurring fees and
-            limited control. They often come with performance issues and make it
-            difficult to integrate with your product.
+            Generic tools often provide static questions or limited practice
+            scenarios. They don&apos;t replicate the real interview environment
+            and leave you underprepared.
           </p>
           <p className="text-muted-foreground mb-4 max-w-[600px]">
-            You can&apos;t even change your hosting provider and basic things
-            like web analytics come as extra costs and paid add-ons.
+            With MockQuest, you get HD video calls, a collaborative live code
+            editor, and AI-powered guidance — all designed to simulate
+            real-world interviews.
           </p>
           <p className="text-muted-foreground mb-4 max-w-[600px]">
-            What might seem like a convenient solution today could paint you
-            into a corner tomorrow, limiting your ability to scale and adapt.
-            Launch UI gives you full control of your code while maintaining
-            professional quality.
+            What might seem like enough preparation elsewhere could leave gaps
+            in your readiness. MockQuest ensures you practice in conditions that
+            mirror actual interviews, helping you scale your confidence and
+            adaptability.
           </p>
         </>
       ),
     },
     {
-      question:
-        "How Launch UI is different from other components libraries and templates?",
+      question: "How is MockQuest different from other interview platforms?",
       answer: (
         <>
           <p className="text-muted-foreground mb-4 max-w-[580px]">
-            Launch UI stands out with premium design quality and delightful
-            touches of custom animations and illustrations.
+            MockQuest stands out with its combination of crystal-clear video
+            calls, real-time collaborative coding, and AI-driven feedback.
           </p>
           <p className="text-muted-foreground mb-4 max-w-[580px]">
-            All components are carefully crafted to help position your product
-            as a professional tool, avoiding the generic template look.
+            Every feature is designed to make your practice sessions feel like
+            the real thing, so you&apos;re never caught off guard in an actual
+            interview.
           </p>
           <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
-            Unlike many libraries that rely on outdated CSS practices and old
-            dependencies, Launch UI is built with modern technologies and best
-            practices in mind.
+            Unlike platforms that rely on outdated formats or limited question
+            banks, MockQuest evolves with industry trends and best practices to
+            keep you ahead.
           </p>
         </>
       ),
     },
     {
-      question: 'Why exactly does it mean that "The code is yours"?',
+      question: 'What does it mean when we say "The practice is yours"?',
       answer: (
         <>
           <p className="text-muted-foreground mb-4 max-w-[580px]">
-            The basic version of Launch UI is open-source and free forever,
-            under a do-whatever-you-want license.
+            MockQuest gives you full control over your interview preparation
+            journey. You can practice unlimited sessions, revisit past attempts,
+            and track your progress without restrictions.
           </p>
           <p className="text-muted-foreground mb-4 max-w-[580px]">
-            The pro version that contains more components and options is a
-            one-time purchase that gives you lifetime access to all current and
-            future content. Use it for unlimited personal and commercial
-            projects - no recurring fees or restrictions.
-          </p>
-          <p className="text-muted-foreground mb-4 max-w-[580px]">
-            For complete details about licensing and usage rights, check out{" "}
-            <Link to="/pricing" className="text-foreground underline">
-              the pricing page
-            </Link>
-            .
+            Whether you&apos;re preparing for technical, behavioral, or system
+            design interviews, MockQuest adapts to your needs — no hidden fees
+            or locked features.
           </p>
         </>
       ),
     },
     {
-      question: "Are Figma files included?",
+      question: "Are practice templates and resources included?",
       answer: (
         <p className="text-muted-foreground mb-4 max-w-[580px]">
-          Yes! The complete Launch UI template is available for free on the{" "}
-          <Link
-            to="https://www.figma.com/community/file/1420131743903900629/launch-ui-landing-page-components-ui-kit"
-            className="text-foreground underline"
-          >
-            Figma community
-          </Link>
-          .
+          Yes! MockQuest provides curated interview question sets, coding
+          challenges, and behavioral templates — all included to help you
+          prepare comprehensively.
         </p>
       ),
     },
     {
-      question: "Can I get a discount?",
+      question: "Is MockQuest free to use?",
       answer: (
         <>
+          {" "}
           <p className="text-muted-foreground mb-4 max-w-[580px]">
-            Actually, yes! I&apos;m always acively looking for beta testers of
-            new features. If you are interested in exchanging feedback for a
-            discount, please contact me via{" "}
-            <a
-              href="https://www.launchuicomponents.com/"
-              className="underline underline-offset-2"
-            >
-              email
-            </a>
-            .
-          </p>
+            {" "}
+            Yes! MockQuest offers free access so you can start practicing
+            interviews right away. You can experience HD video calls, live
+            coding sessions, and collaboration tools without any upfront
+            cost.{" "}
+          </p>{" "}
+          <p className="text-muted-foreground mb-4 max-w-[580px]">
+            {" "}
+            Advanced features and premium resources are available through our
+            paid plans, but the core platform is free to help everyone prepare
+            effectively.{" "}
+          </p>{" "}
         </>
       ),
     },
