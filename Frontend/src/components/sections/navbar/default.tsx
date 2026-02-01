@@ -43,12 +43,12 @@ export default function Navbar({
   name = "MockQuest",
   homeUrl = "",
   mobileLinks = [
-    { text: "Getting Started", href: "" },
-    { text: "Components", href: "" },
-    { text: "Documentation", href: "" },
+    { text: "Overview", href: "" },
+    { text: "Features", href: "" },
+    { text: "Problems", href: "/problems" },
   ],
   actions = [
-    { text: "Sign in", href: "https://www.launchuicomponents.com/", isButton: false },
+    { text: "Sign in", href: "", isButton: false },
     {
       text: "Get Started",
       href: "",

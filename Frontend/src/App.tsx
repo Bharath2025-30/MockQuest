@@ -12,6 +12,7 @@ import Problems from "./components/Pages/Problems";
 import { useUser } from "@clerk/clerk-react";
 import {Toaster} from 'react-hot-toast'
 import Dashboard from "./components/Pages/Dashboard";
+import ProblemDetail from "./components/Pages/ProblemDetail";
 
 function App() {
   const {isSignedIn} = useUser();
@@ -41,7 +42,9 @@ function App() {
 
         <Route path="/dashboard" element={ isSignedIn ? <Dashboard /> : <Navigate to={"/"} />}/>
 
-        <Route path="/problems" element={ isSignedIn ? <Problems/> : <Navigate to={"/"}/> }/>
+        <Route path="/problems" element={ <Problems />}/>
+        <Route path="/problems/:problemId" element={<ProblemDetail />}/>
+
       </Routes>
       <FooterSection />
       <Toaster/>

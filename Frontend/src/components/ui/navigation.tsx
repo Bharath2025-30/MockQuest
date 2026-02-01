@@ -42,7 +42,7 @@ interface NavigationProps {
 export default function Navigation({
   menuItems = [
     {
-      title: "Getting started",
+      title: "Overview",
       content: "default",
     },
     {
@@ -50,9 +50,9 @@ export default function Navigation({
       content: "features",
     },
     {
-      title: "Documentation",
+      title: "Problems",
       isLink: true,
-      href: "",
+      href: "/problems",
     },
   ],
   features = [
