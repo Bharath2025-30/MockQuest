@@ -67,7 +67,7 @@ export default function FooterSection({
 }: FooterProps) {
   return (
     <footer className={cn("bg-background w-full px-4", className)}>
-      <div className="max-w-container mx-auto">
+      <div className="max-w-container mx-auto relative">
         <Footer>
           <FooterContent>
             <FooterColumn className="col-span-2 sm:col-span-3 md:col-span-1">
