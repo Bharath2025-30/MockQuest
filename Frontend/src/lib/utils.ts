@@ -23,3 +23,29 @@ export const getDifficultyBadgeClass = (
         return "secondary"; // Default variant
     }
 }
+
+export const getEnumForDifficulty = (difficulty: string): number => {
+  switch (difficulty?.toLowerCase()) { 
+      case "easy":
+        return 0; 
+      case "medium":
+        return 1;
+      case "hard":
+        return 2;
+      default:
+        return 2; 
+    }
+}
+
+export const getDifficutyName = (difficulty: number): string => {
+  switch (difficulty) { 
+      case 0:
+        return "Easy"; 
+      case 1:
+        return "Medium";
+      case 2:
+        return "Hard";
+      default:
+        return "Hard"; 
+    }
+}

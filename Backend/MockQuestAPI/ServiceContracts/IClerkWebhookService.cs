@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using MockQuestAPI.Entities;
+using System.Text.Json;
 
 namespace MockQuestAPI.ServiceContracts
 {
@@ -8,5 +9,6 @@ namespace MockQuestAPI.ServiceContracts
         Task HandleUserCreated(JsonElement userData);
         Task HandleUserUpdated(JsonElement userData);
         Task HandleUserDeleted(JsonElement userData);
+        Task<User?> GetUserDetailsByClearkid(string clearkid);
     }
 }

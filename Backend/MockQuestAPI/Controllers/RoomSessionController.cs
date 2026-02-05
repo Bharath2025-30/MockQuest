@@ -219,5 +219,21 @@ namespace MockQuestAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("/getStreamToken")]
+        public async Task<IActionResult> GetStreamToken()
+        {
+            try
+            {
+                return Ok("");
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
 }

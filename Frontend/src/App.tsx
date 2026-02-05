@@ -13,9 +13,17 @@ import { useUser } from "@clerk/clerk-react";
 import {Toaster} from 'react-hot-toast'
 import Dashboard from "./components/Pages/Dashboard";
 import ProblemDetail from "./components/Pages/ProblemDetail";
+import { useUserDetails } from "./hooks/useSessions";
 
 function App() {
-  const {isSignedIn} = useUser();
+  const {isSignedIn, user} = useUser();
+
+  if(isSignedIn){
+    const {data: loggedInUserDetails} = useUserDetails(user.id);
+    console.log(loggedInUserDetails);
+    sessionStorage.setItem("userId", loggedInUserDetails?.user?.id);
+  }
+
   return (
     <div className="dark bg-background text-foreground ">
       <Navbar />
@@ -25,22 +33,16 @@ function App() {
           path="/"
           element={
             <>
-            {!isSignedIn ? (
-              <>
               <Hero />
               <Logos />
               <Items />
               <FAQ />
               <CTA />
-              </>)
-              : (
-              <Navigate to="/dashboard" />
-              )}
-            </> 
+              </>
           }
         />
 
-        <Route path="/dashboard" element={ isSignedIn ? <Dashboard /> : <Navigate to={"/"} />}/>
+        <Route path="/dashboard" element={ <Dashboard /> } />
 
         <Route path="/problems" element={ <Problems />}/>
         <Route path="/problems/:problemId" element={<ProblemDetail />}/>
