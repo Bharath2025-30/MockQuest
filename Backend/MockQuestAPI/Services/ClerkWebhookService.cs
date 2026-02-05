@@ -238,6 +238,13 @@ namespace MockQuestAPI.Services
                 throw;
             }
         }
+
+        public async Task<User?> GetUserDetailsByClearkid(string clearkid)
+        {
+            var user = await _dbContext.Users.AsQueryable()
+                    .FirstOrDefaultAsync(u => u.ClerkId == clearkid);
+            return user;
+        }
     }
 }
 

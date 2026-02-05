@@ -83,6 +83,26 @@ namespace MockQuestAPI.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+
+        [HttpGet]
+        [Route("getUserDetails/{clerkId}")]
+        public async Task<IActionResult> GetUserDetailsByClerkId(string clerkid)
+        {
+            try
+            {
+                var user = await _webhookService.GetUserDetailsByClearkid(clerkid);
+                return Ok(new
+                {
+                    user = user,
+                    Message = "Fetched User destails successfully"
+                });
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error Fetching user details using clerkId");
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
     }
 }
 
