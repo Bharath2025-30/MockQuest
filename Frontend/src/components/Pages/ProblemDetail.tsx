@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
 import CodeEditor from "../sections/panels/CodeEditor";
 import OutputTab from "../sections/panels/OutputTab";
-import ProblemDescription from "../sections/panels/problemDescription";
+import ProblemDescription from "../sections/panels/ProblemDescription";
 import { ExecuteCode } from "@/lib/piston";
 import toast from "react-hot-toast";
 import confetti from "canvas-confetti"
@@ -138,8 +138,9 @@ const triggerConfetti = () => {
                 />
             </Panel>
 
-            <PanelResizeHandle className="w-1.5 cursor-col-resize 
+            <PanelResizeHandle className="w-1 cursor-col-resize 
              bg-foreground/40
+             rounded
              hover:bg-foreground 
              hover:drop-shadow-[0_0_3px_var(--brand-foreground/30)] 
              transition-all duration-300"/>
@@ -159,9 +160,10 @@ const triggerConfetti = () => {
                         />
                     </Panel>
 
-                    <PanelResizeHandle className="h-1.5 cursor-col-resize 
+                    <PanelResizeHandle className="h-1 cursor-col-resize 
                     bg-foreground/40
                     hover:bg-foreground 
+                    rounded
                     hover:drop-shadow-[0_0_3px_var(--brand-foreground/30)] 
                     transition-all duration-300"/>
                     

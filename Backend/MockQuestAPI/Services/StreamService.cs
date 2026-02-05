@@ -275,6 +275,12 @@ namespace MockQuestAPI.Services
             }
         }
 
+        public async Task<string> GetStreamToken(string userId)
+        {
+            if (userId == null) return "";
+            return GenerateStreamToken(userId);
+        }
+
 
         /// <summary>
         /// Generates a JWT token for Stream authentication

@@ -31,8 +31,8 @@ export const sessionApi = {
         return response.data;
     },
 
-    getStreamToken: async () => {
-        const response = await axiosInstance.get(`/RoomSession/getStreamToken`);
+    getStreamToken: async (clerkId: string) => {
+        const response = await axiosInstance.get(`/RoomSession/getStreamToken/${clerkId}`);
         return response.data;
     },
 
