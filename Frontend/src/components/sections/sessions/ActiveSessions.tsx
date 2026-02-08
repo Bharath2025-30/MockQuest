@@ -6,7 +6,6 @@ import {
   UsersIcon,
   ZapIcon,
   LoaderIcon,
-  ChevronRightIcon,
 } from "lucide-react";
 import { Link } from "react-router";
 import { getDifficultyBadgeClass, getDifficutyName } from "../../../lib/utils";

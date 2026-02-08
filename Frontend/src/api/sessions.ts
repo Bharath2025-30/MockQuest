@@ -7,6 +7,7 @@ export const sessionApi = {
     },
 
     getActiveSessions: async(data: any) => {
+        console.log(data);
         const response = await axiosInstance.get("/RoomSession/active-sessions");
         return response.data;
     },
