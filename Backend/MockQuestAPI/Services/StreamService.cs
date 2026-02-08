@@ -282,77 +282,77 @@ namespace MockQuestAPI.Services
         }
 
 
-        /// <summary>
-        /// Generates a JWT token for Stream authentication
-        /// </summary>
-        /// <param name="userId">The user ID to generate token for</param>
-        /// <returns>JWT token string</returns>
-        private string GenerateStreamToken(string userId)
-        {
-            try
-            {
-                var apiSecret = _config["STREAM_API_SECRET"];
-
-                // Create header
-                var header = new
+                /// <summary>
+                /// Generates a JWT token for Stream authentication
+                /// </summary>
+                /// <param name="userId">The user ID to generate token for</param>
+                /// <returns>JWT token string</returns>
+                private string GenerateStreamToken(string userId)
                 {
-                    alg = "HS256",
-                    typ = "JWT"
-                };
+                    try
+                    {
+                        var apiSecret = _config["STREAM_API_SECRET"];
 
-                // Create payload
-                var payload = new
+                        // Create header
+                        var header = new
+                        {
+                            alg = "HS256",
+                            typ = "JWT"
+                        };
+
+                        // Create payload
+                        var payload = new
+                        {
+                            user_id = userId,
+                            iat = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+                            exp = DateTimeOffset.UtcNow.AddYears(1).ToUnixTimeSeconds() // Token valid for 24 hours
+                        };
+
+                        // Encode header and payload
+                        var headerJson = JsonSerializer.Serialize(header);
+                        var payloadJson = JsonSerializer.Serialize(payload);
+
+                        var headerBase64 = Base64UrlEncode(Encoding.UTF8.GetBytes(headerJson));
+                        var payloadBase64 = Base64UrlEncode(Encoding.UTF8.GetBytes(payloadJson));
+
+                        // Create signature
+                        var message = $"{headerBase64}.{payloadBase64}";
+                        var signature = ComputeHmacSha256(message, apiSecret);
+                        var signatureBase64 = Base64UrlEncode(signature);
+
+                        // Combine to create JWT
+                        var jwt = $"{headerBase64}.{payloadBase64}.{signatureBase64}";
+
+                        return jwt;
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, $"Failed to generate Stream token for user {userId}");
+                        throw;
+                    }
+                }
+
+                /// <summary>
+                /// Computes HMAC SHA256 hash
+                /// </summary>
+                private byte[] ComputeHmacSha256(string message, string secret)
                 {
-                    user_id = userId,
-                    iat = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
-                    exp = DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds() // Token valid for 24 hours
-                };
+                    var keyBytes = Encoding.UTF8.GetBytes(secret);
+                    var messageBytes = Encoding.UTF8.GetBytes(message);
 
-                // Encode header and payload
-                var headerJson = JsonSerializer.Serialize(header);
-                var payloadJson = JsonSerializer.Serialize(payload);
+                    using var hmac = new HMACSHA256(keyBytes);
+                    return hmac.ComputeHash(messageBytes);
+                }
 
-                var headerBase64 = Base64UrlEncode(Encoding.UTF8.GetBytes(headerJson));
-                var payloadBase64 = Base64UrlEncode(Encoding.UTF8.GetBytes(payloadJson));
-
-                // Create signature
-                var message = $"{headerBase64}.{payloadBase64}";
-                var signature = ComputeHmacSha256(message, apiSecret);
-                var signatureBase64 = Base64UrlEncode(signature);
-
-                // Combine to create JWT
-                var jwt = $"{headerBase64}.{payloadBase64}.{signatureBase64}";
-
-                return jwt;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Failed to generate Stream token for user {userId}");
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Computes HMAC SHA256 hash
-        /// </summary>
-        private byte[] ComputeHmacSha256(string message, string secret)
-        {
-            var keyBytes = Encoding.UTF8.GetBytes(secret);
-            var messageBytes = Encoding.UTF8.GetBytes(message);
-
-            using var hmac = new HMACSHA256(keyBytes);
-            return hmac.ComputeHash(messageBytes);
-        }
-
-        /// <summary>
-        /// Base64 URL encode (removes padding and replaces characters)
-        /// </summary>
-        private string Base64UrlEncode(byte[] input)
-        {
-            var base64 = Convert.ToBase64String(input);
-            // Replace URL-unsafe characters and remove padding
-            return base64.Replace("+", "-").Replace("/", "_").Replace("=", "");
-        }
+                /// <summary>
+                /// Base64 URL encode (removes padding and replaces characters)
+                /// </summary>
+                private string Base64UrlEncode(byte[] input)
+                {
+                    var base64 = Convert.ToBase64String(input);
+                    // Replace URL-unsafe characters and remove padding
+                    return base64.Replace("+", "-").Replace("/", "_").Replace("=", "");
+                }
 
 
     }

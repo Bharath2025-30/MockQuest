@@ -12,8 +12,8 @@ export const sessionApi = {
     },
 
     getMyRecentSessions: async(userId: string) => {
-        const response = await axiosInstance.get(`/RoomSession/previous-sessions/${userId}`);
-        return response.data;
+            const response = await axiosInstance.get(`/RoomSession/previous-sessions/${userId}`);
+            return response.data;
     },
 
     getSessionById: async(id: string) => {
@@ -22,12 +22,20 @@ export const sessionApi = {
     },
 
     joinSession: async (id: string) => {
-        const response = await axiosInstance.post(`/RoomSession/${id}/join`);
+        const data = {
+            userId : sessionStorage.getItem("userId"),
+            clerkId: sessionStorage.getItem("clerkId")
+        }
+        const response = await axiosInstance.post(`/RoomSession/${id}/join`, data);
         return response.data;
     },
 
     endSession: async (id: string) => {
-        const response = await axiosInstance.post(`/RoomSession/${id}/end`);
+        const data = {
+            userId : sessionStorage.getItem("userId"),
+            clerkId: sessionStorage.getItem("clerkId")
+        }
+        const response = await axiosInstance.post(`/RoomSession/${id}/end`, data);
         return response.data;
     },
 

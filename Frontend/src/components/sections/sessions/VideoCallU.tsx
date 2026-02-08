@@ -4,13 +4,14 @@ import {
   SpeakerLayout,
   useCallStateHooks,
 } from "@stream-io/video-react-sdk";
-import { Loader2Icon, MessageSquareIcon, UsersIcon, XIcon } from "lucide-react";
+import { ArrowRightIcon, Loader2Icon, MessageSquareIcon, UsersIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Channel, Chat, MessageInput, MessageList, Thread, Window } from "stream-chat-react";
 
 import "@stream-io/video-react-sdk/dist/css/styles.css";
 import "stream-chat-react/dist/css/v2/index.css";
+import { Button } from "@/components/ui/button";
 
 function VideoCallUI({ chatClient, channel }: any) {
   const navigate = useNavigate();
@@ -18,6 +19,16 @@ function VideoCallUI({ chatClient, channel }: any) {
   const callingState = useCallCallingState();
   const participantCount = useParticipantCount();
   const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const handleLeave = async () => {
+    try {
+      // Navigate first - cleanup will happen in useStreamClient's cleanup
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error leaving call:", error);
+      navigate("/dashboard");
+    }
+  };
 
   if (callingState === CallingState.JOINING) {
     return (
@@ -42,14 +53,15 @@ function VideoCallUI({ chatClient, channel }: any) {
             </span>
           </div>
           {chatClient && channel && (
-            <button
+            <Button size="sm"
               onClick={() => setIsChatOpen(!isChatOpen)}
-              className={`btn btn-sm gap-2 ${isChatOpen ? "btn-primary" : "btn-ghost"}`}
+              variant="outline"
+              className="flex items-center gap-2"
               title={isChatOpen ? "Hide chat" : "Show chat"}
             >
-              <MessageSquareIcon className="size-4" />
-              Chat
-            </button>
+              <MessageSquareIcon className="size-4" /> Chat
+              <ArrowRightIcon className="size-3 sm:size-4" />
+            </Button>
           )}
         </div>
 
@@ -58,7 +70,7 @@ function VideoCallUI({ chatClient, channel }: any) {
         </div>
 
         <div className="bg-base-100 p-3 rounded-lg shadow flex justify-center">
-          <CallControls onLeave={() => navigate("/dashboard")} />
+          <CallControls onLeave={handleLeave} />
         </div>
       </div>
 

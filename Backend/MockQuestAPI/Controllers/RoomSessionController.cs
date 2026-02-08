@@ -53,7 +53,7 @@ namespace MockQuestAPI.Controllers
                 await _streamService.CreateVideoSession(createSessionReqDto, newSession!.Id, callId);
 
                 // Create Chat messaging
-                await _streamService.CreateChatChannel(callId, createSessionReqDto.UserId!);
+                await _streamService.CreateChatChannel(callId, createSessionReqDto.ClerkId!);
 
                 return Ok(new
                 {
@@ -203,7 +203,7 @@ namespace MockQuestAPI.Controllers
                     return BadRequest("Session is already completed");
 
                 // deleting the stream video-call and chat channel
-                //await _streamService.DeleteVideoSession(session.CallId, endSessionReqDto.ClerkId);   //TODO : DLT isnt working need to check this later
+                
                 await _streamService.DeleteChatChannel(session.CallId);
 
                 // updating the session

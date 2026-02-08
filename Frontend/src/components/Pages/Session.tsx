@@ -16,7 +16,7 @@ import {
 } from "@/lib/utils";
 import { useUser } from "@clerk/clerk-react";
 import { Loader2Icon, LogOutIcon, PhoneOffIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { useNavigate, useParams } from "react-router";
 import { Badge } from "../ui/badge";
@@ -42,21 +42,17 @@ const Session = () => {
   const joinSessionMutation = useJoinSession();
   const endSessionMutation = useEndSession();
 
-  console.log(sessionData);
-
-  const session = { ...sessionData };
+  const session = sessionData;
   const isHost = session?.host?.clerkId === user?.id;
   const isParticipant = session?.participant?.clerkId === user?.id;
-
-  console.log(isHost);
-  console.log(user);
 
   const {call, channel, chatClient, isInitializingCall, streamClient} = useStreamClient(session, loadingSession, isHost, isParticipant);
 
   // finding problem data based on session problem title
-  const problemData: Problem | null | undefined = session?.problemTitle
-    ? Object.values(PROBLEMS).find((p) => p.title === session.problemTitle)
-    : null;
+ const problemData = useMemo(() => {
+     if (!session?.problemTitle) return null;
+     return Object.values(PROBLEMS).find((p) => p.title === session.problemTitle);
+   }, [session?.problemTitle]);
 
   const [selectedLanguage, setSelectedLanguage] =
     useState<SupportedLanguage>("javascript");
@@ -121,11 +117,13 @@ const Session = () => {
   };
 
   return (
-    <div className="h-[150vh] flex flex-col ">
+    <div className="h-[95vh] flex flex-col ">
       <div className="flex-1">
-        <PanelGroup direction={window.innerWidth >= 900 ? "horizontal" : "vertical"}>
+        <PanelGroup
+          direction={window.innerWidth >= 900 ? "horizontal" : "vertical"}
+        >
           {/* Left panel - CODE editor & problem details */}
-          <Panel defaultSize={50} minSize={30}>
+          <Panel defaultSize={30} minSize={30}>
             <PanelGroup direction="vertical">
               {/* Problem Description Panel*/}
               <Panel defaultSize={50} minSize={20}>
@@ -158,10 +156,10 @@ const Session = () => {
                       <div className="flex items-center gap-3">
                         <Badge
                           variant={getDifficultyBadgeClass(
-                            getDifficutyName(session.problemDifficulty),
+                            getDifficutyName(session?.problemDifficulty),
                           )}
                         >
-                          {getDifficutyName(session.problemDifficulty)}
+                          {getDifficutyName(session?.problemDifficulty)}
                         </Badge>
                         {isHost && session?.status === SessionStatus.Active && (
                           <Button
@@ -280,10 +278,10 @@ const Session = () => {
 
               {/* Code Editor Panel */}
 
-              <Panel defaultSize={50} minSize={20}>
+              <Panel defaultSize={70} minSize={20}>
                 <PanelGroup direction="vertical">
                   {/* Code Editor Panel */}
-                  <Panel defaultSize={90} minSize={30}>
+                  <Panel defaultSize={80} minSize={30}>
                     <CodeEditor
                       selectedLanguage={selectedLanguage}
                       code={code}
@@ -304,7 +302,7 @@ const Session = () => {
                   />
 
                   {/* Output Tab Panel */}
-                  <Panel defaultSize={10} minSize={10}>
+                  <Panel defaultSize={20} minSize={10}>
                     <OutputTab output={output} />
                   </Panel>
                 </PanelGroup>
@@ -323,23 +321,57 @@ const Session = () => {
 
           {/* Video calling panel */}
           <Panel defaultSize={50} minSize={30}>
-            {/* <div className="h-full bg-base-200 p-4 overflow-auto">
-                {isInitializingCall ? (
-                <div className="h-full flex items-center justify-center">
-                  <div className="text-center">
-                    <Loader2Icon className="w-12 h-12 mx-auto animate-spin text-primary mb-4" />
-                    <p className="text-lg">Connecting to video call...</p>
+            <div className="h-full bg-base-200 p-4 overflow-auto">
+              {isInitializingCall ? (
+                <div className="h-full flex items-center justify-center p-4">
+                  <div className="text-center max-w-md w-full space-y-3 sm:space-y-4">
+                    <div className="relative inline-block">
+                      <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse"></div>
+                      <Loader2Icon className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto animate-spin text-primary" />
+                    </div>
+                    <p className="text-sm sm:text-base md:text-lg font-medium text-base-content">
+                      Connecting to video call...
+                    </p>
+                    <div className="flex gap-1 justify-center">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full animate-bounce"></div>
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full animate-bounce animation-delay-200"></div>
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full animate-bounce animation-delay-400"></div>
+                    </div>
                   </div>
                 </div>
               ) : !streamClient || !call ? (
-                <div className="h-full flex items-center justify-center">
-                  <div className="card bg-base-100 shadow-xl max-w-md">
-                    <div className="card-body items-center text-center">
-                      <div className="w-24 h-24 bg-error/10 rounded-full flex items-center justify-center mb-4">
-                        <PhoneOffIcon className="w-12 h-12 text-error" />
+                <div className="h-full flex items-center justify-center p-4 sm:p-6 ">
+                  <div className="card bg-base-100 shadow-xl w-full max-w-xs sm:max-w-sm md:max-w-md">
+                    <div className="card-body items-center text-center p-6 sm:p-8 space-y-4 sm:space-y-5 ">
+                      <div className="relative ">
+                        <div className="absolute inset-0 bg-error/20 rounded-full blur-xl"></div>
+                        <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-error/10 rounded-full flex items-center justify-center">
+                          <PhoneOffIcon className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-error" />
+                        </div>
                       </div>
-                      <h2 className="card-title text-2xl">Connection Failed</h2>
-                      <p className="text-base-content/70">Unable to connect to the video call</p>
+
+                      <div className="space-y-2 flex flex-col items-center">
+                        <h2 className="card-title text-lg sm:text-xl md:text-2xl font-bold justify-center">
+                          Connection Failed
+                        </h2>
+                        <p className="text-xs sm:text-sm md:text-base text-base-content/70 leading-relaxed max-w-xs text-center justify-around">
+                          Unable to connect to the video call. Retrying
+                          automatically...
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2 justify-center">
+                        <div className="flex gap-1">
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse"></div>
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse animation-delay-100"></div>
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse animation-delay-200"></div>
+                        </div>
+                        <span className="text-[10px] sm:text-xs text-white font-medium">
+                          Retrying...
+                        </span>
+                      </div>
+
+                      
                     </div>
                   </div>
                 </div>
@@ -352,7 +384,7 @@ const Session = () => {
                   </StreamVideo>
                 </div>
               )}
-            </div> */}
+            </div>
           </Panel>
         </PanelGroup>
       </div>
