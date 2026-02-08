@@ -1,6 +1,5 @@
 import {
   PROBLEMS,
-  type Problem,
   type SupportedLanguage,
 } from "@/data/Problems";
 import {
