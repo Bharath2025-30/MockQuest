@@ -47,7 +47,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("MockQuestCorsPolicy", poilicyBuilder =>
     {
         // Added ngrok public URL - TODO : Need to remove this after development
-        poilicyBuilder.WithOrigins("http://localhost:5173", " https://inconvincible-ally-wilton.ngrok-free.dev/");
+        poilicyBuilder.WithOrigins("http://localhost:5173", "https://inconvincible-ally-wilton.ngrok-free.dev/");
         poilicyBuilder.AllowAnyHeader();
         poilicyBuilder.AllowAnyMethod();
         poilicyBuilder.AllowCredentials();

@@ -49,3 +49,9 @@ export const getDifficutyName = (difficulty: number): string => {
         return "Hard"; 
     }
 }
+
+export const SessionStatus = {
+  Active: 0,
+  Completed: 1
+} as const;
+

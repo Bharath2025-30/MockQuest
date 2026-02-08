@@ -18,10 +18,13 @@ namespace MockQuestAPI.Controllers
     {
         private readonly ISessionService _sessionService;
         private readonly IStreamService _streamService;
-        public RoomSessionController(ISessionService sessionService, IStreamService streamService)
+        private readonly IClerkWebhookService _clekWebhookService;
+        public RoomSessionController(ISessionService sessionService, IStreamService streamService, IClerkWebhookService 
+            clerkWebhookService)
         {
             _sessionService = sessionService;
             _streamService = streamService;
+            _clekWebhookService = clerkWebhookService;
         }
 
         [HttpPost]
@@ -50,7 +53,7 @@ namespace MockQuestAPI.Controllers
                 await _streamService.CreateVideoSession(createSessionReqDto, newSession!.Id, callId);
 
                 // Create Chat messaging
-                await _streamService.CreateChatChannel(callId, createSessionReqDto.UserId!);
+                await _streamService.CreateChatChannel(callId, createSessionReqDto.ClerkId!);
 
                 return Ok(new
                 {
@@ -200,7 +203,7 @@ namespace MockQuestAPI.Controllers
                     return BadRequest("Session is already completed");
 
                 // deleting the stream video-call and chat channel
-                //await _streamService.DeleteVideoSession(session.CallId, endSessionReqDto.ClerkId);   //TODO : DLT isnt working need to check this later
+                
                 await _streamService.DeleteChatChannel(session.CallId);
 
                 // updating the session
@@ -221,12 +224,25 @@ namespace MockQuestAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/getStreamToken")]
-        public async Task<IActionResult> GetStreamToken()
+        [Route("getStreamToken/{clerkId}")]
+        public async Task<IActionResult> GetStreamToken([FromRoute]string clerkId)
         {
             try
             {
-                return Ok("");
+                if(string.IsNullOrEmpty(clerkId))
+                {
+                    return BadRequest("Invalid Clerkid");
+                }
+
+                var userDetails = await _clekWebhookService.GetUserDetailsByClearkid(clerkId);
+                string token = await _streamService.GetStreamToken(clerkId);
+                return Ok(new
+                {
+                    token = token,
+                    userId = clerkId,
+                    userName = userDetails?.Name,
+                    userImage = userDetails?.ProfileImage
+                });
 
             }
             catch (Exception ex)

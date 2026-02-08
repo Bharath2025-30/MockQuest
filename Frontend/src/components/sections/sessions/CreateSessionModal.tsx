@@ -66,7 +66,7 @@ const CreateSessionModal = ({
               const problem = problems.find((p) => p.id === value);
               if (problem) {
                 setRoomConfig({
-                  problem: value,
+                  problem: problem.title,
                   difficulty: getEnumForDifficulty(problem?.difficulty) ?? 0,
                 });
                 setSelectedProblem(problem);
