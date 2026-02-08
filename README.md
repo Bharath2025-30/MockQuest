@@ -13,7 +13,8 @@ MockQuest is a full-stack interview preparation platform built with **React** (f
 ---
 
 ## 📸 MockQuest
-![MockQuest Screenshot](./public/mockQuestApp.png)
+![MockQuest Screenshot]
+<img width="925" height="903" alt="mockQuestApp" src="https://github.com/user-attachments/assets/f86d8fc8-03a5-4621-8984-e401aee48609" />
 
 ---
 
