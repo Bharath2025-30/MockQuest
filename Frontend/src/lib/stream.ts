@@ -50,7 +50,7 @@ export const initializeStreamClient = async (
 
 export const disconnectStreamClient = async (): Promise<void> => {
   if (!clientState) {
-    // console.log("ℹ️ No client to disconnect");
+    console.log("ℹ️ No client to disconnect");
     return;
   }
 
@@ -59,13 +59,13 @@ export const disconnectStreamClient = async (): Promise<void> => {
   try {
     // console.log("🔄 Disconnecting Stream client for user:", userId);
     await clientState.client.disconnectUser();
-    // console.log("✅ Successfully disconnected user:", userId);
+    console.log("✅ Successfully disconnected user:", userId);
   } catch (error) {
-    // console.error("❌ Error disconnecting stream client:", error);
+    console.error("❌ Error disconnecting stream client:", error);
   } finally {
     // Always reset state, even if disconnect fails
     clientState = null;
-    // console.log("✅ Client state reset");
+    console.log("✅ Client state reset");
   }
 };
 
