@@ -1,73 +1,45 @@
-# React + TypeScript + Vite
+# MockQuest 🎯
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)
+![.NET Core](https://img.shields.io/badge/Backend-.NET%20Core-purple?logo=dotnet)
+![MongoDB](https://img.shields.io/badge/Database-MongoDB-green?logo=mongodb)
+![Clerk](https://img.shields.io/badge/Auth-Clerk-orange)
+![Stream](https://img.shields.io/badge/Video%20%26%20Chat-Stream-lightblue)
 
-Currently, two official plugins are available:
+**Ace Your Confidence, Unlock Every Opportunity**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+MockQuest is a full-stack interview preparation platform built with **React** (frontend) and **.NET Core** (backend). It integrates advanced services like **Clerk** for authentication, **Stream** for real-time video and chat, and **MongoDB** for application data storage. Designed for seamless **1-to-1 mock interview sessions**, MockQuest provides a collaborative coding environment with video calling, screen sharing, and chat — all powered by curated problems and multi-language support.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📸 MockQuest
+![MockQuest Screenshot](./public/mockQuestApp.png)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⚙️ Tech Stack
+- **Frontend:** React, TypeScript, Vite  
+- **Backend:** .NET Core API  
+- **Authentication:** Clerk  
+- **Video & Chat:** Stream  
+- **Database:** MongoDB  
+- **Upcoming Enhacements:** AI-powered interview assistance  
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🔍 SetUp
+Clone the repo
+git clone https://github.com/your-username/mockquest.git
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Frontend setup**
+- cd frontend
+- npm install
+- npm run dev
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Backend setup**
+- cd backend
+- dotnet restore
+- dotnet run
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
