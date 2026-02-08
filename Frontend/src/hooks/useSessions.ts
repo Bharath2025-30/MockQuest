@@ -68,10 +68,11 @@ export const useEndSession = () => {
 
 export const useUserDetails = (clerkId: string) => {
     const result = useQuery({
-        queryKey: ["userDetails"],
-        queryFn: () => sessionApi.getUserDetails(clerkId),
-        enabled: !!clerkId
-    });
+    queryKey: ["userDetails", clerkId],
+    queryFn: () => sessionApi.getUserDetails(clerkId),
+    enabled: !!clerkId && clerkId !== "",  // ✅ Only run when clerkId exists
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+  });
 
     return result;
 };

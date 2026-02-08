@@ -42,7 +42,7 @@ export default function Logos({
   className,
 }: LogosProps) {
   return (
-    <Section className={className}>
+    <Section className={className }>
       <div className="max-w-container mx-auto flex flex-col items-center gap-8 text-center">
         <div className="flex flex-col items-center gap-6">
           {badge !== false && badge}

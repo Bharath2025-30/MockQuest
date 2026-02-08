@@ -1,17 +1,14 @@
 import { type VariantProps } from "class-variance-authority";
 import { ArrowRightIcon } from "lucide-react";
 import type { ReactNode } from "react";
-
 import { cn } from "@/lib/utils";
-
-import Github from "../../logos/github";
 import { Badge } from "../../ui/badge";
 import { Button, buttonVariants } from "../../ui/button";
 import Glow from "../../ui/glow";
 import { Mockup, MockupFrame } from "../../ui/mockup";
 import Screenshot from "../../ui/screenshot";
 import { Section } from "../../ui/section";
-import { SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 
 interface HeroButtonProps {
   href: string;
@@ -36,8 +33,8 @@ export default function Hero({
   mockup = (
     <Screenshot
       srcLight="/dashboard-light.png"
-      srcDark="/dashboard-dark.png"
-      alt="Launch UI app screenshot"
+      srcDark="/mockQuest.png"
+      alt="MockQuest UI Screenshot"
       width={1248}
       height={765}
       className="w-full"
@@ -82,11 +79,10 @@ export default function Hero({
           {buttons !== false && buttons.length > 0 && (
             <div className="animate-appear relative z-10 flex justify-center gap-4 opacity-0 delay-300">
               {buttons.map((button, index) => (
-                <>
+                <div key={index}>
                   <SignedOut>
                     <SignInButton mode="modal">
                       <Button
-                      key={index}
                       variant="default"
                       size="lg"
                     >
@@ -96,7 +92,6 @@ export default function Hero({
                   </SignedOut>
                   <SignedIn>
                     <Button
-                      key={index}
                       variant={button.variant || "default"}
                       size="lg"
                       asChild
@@ -108,7 +103,7 @@ export default function Hero({
                       </a>
                     </Button>
                   </SignedIn>
-                </>
+                </div>
               ))}
             </div>
           )}
@@ -120,7 +115,7 @@ export default function Hero({
               >
                 <Mockup
                   type="responsive"
-                  className="bg-background/90 w-full rounded-xl border-0"
+                  className="bg-background w-full rounded-xl border-0"
                 >
                   {mockup}
                 </Mockup>
@@ -129,6 +124,7 @@ export default function Hero({
                 variant="top"
                 className="animate-appear-zoom opacity-0 delay-1000"
               />
+              <br /><br /><br /><br /><br />
             </div>
           )}
         </div>

@@ -2,7 +2,6 @@
 
 import { ChevronsUpDownIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import * as React from "react";
 import { useEffect,useState } from "react";
 
 import { Button } from "./button";
@@ -40,9 +39,6 @@ export function ModeToggle() {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
           Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

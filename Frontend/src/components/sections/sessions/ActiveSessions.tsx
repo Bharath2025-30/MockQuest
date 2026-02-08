@@ -111,7 +111,7 @@ const ActiveSessions = (
                           variant={
                             isUserInSession(session) ? "outline" : "default"
                           }
-                          className="flex items-center gap-2"
+                          className="flex items-center gap-2 cursor-pointer"
                         >
                           {isUserInSession(session) ? "Rejoin" : "Join"}
                           <ArrowRightIcon className="size-3 sm:size-4" />
