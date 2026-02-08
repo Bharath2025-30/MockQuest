@@ -4,8 +4,6 @@ const StatsCards = ({
   activeSessionsCount,
   recentSessionsCount
 }: any) => {
-  console.log(activeSessionsCount)
-  console.log(recentSessionsCount)
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:col-span-1">
       {/* Active Count */}

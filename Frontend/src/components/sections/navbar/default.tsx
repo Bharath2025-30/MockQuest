@@ -1,3 +1,4 @@
+import React from "react";
 import { type VariantProps } from "class-variance-authority";
 import { Menu } from "lucide-react";
 import type { ReactNode } from "react";
@@ -10,7 +11,13 @@ import {
 } from "../../ui/navbar";
 import Navigation from "../../ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
-import { SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from "@clerk/clerk-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+  UserButton,
+} from "@clerk/clerk-react";
 import MockQuest from "../../logos/mockQuest";
 
 interface NavbarLink {
@@ -19,12 +26,14 @@ interface NavbarLink {
 }
 
 interface NavbarActionProps {
+  id?: string; // optional stable id for keys
   text: string;
-  href: string;
+  href?: string;
   variant?: VariantProps<typeof buttonVariants>["variant"];
   icon?: ReactNode;
   iconRight?: ReactNode;
   isButton?: boolean;
+  isLogInBtn?: boolean;
 }
 
 interface NavbarProps {
@@ -41,19 +50,26 @@ interface NavbarProps {
 export default function Navbar({
   logo = <MockQuest />,
   name = "MockQuest",
-  homeUrl = "",
+  homeUrl = "/",
   mobileLinks = [
     { text: "Overview", href: "" },
     { text: "Features", href: "" },
     { text: "Problems", href: "/problems" },
   ],
   actions = [
-    { text: "Sign in", href: "", isButton: false },
+    {
+      text:'Dashboard',
+      href: "/dashboard",
+      isButton: true,
+      variant: "outline",
+      isLogInBtn: false
+    },
     {
       text: "Get Started",
       href: "",
       isButton: true,
       variant: "default",
+      isLogInBtn: true
     },
   ],
   showNavigation = true,
@@ -75,38 +91,43 @@ export default function Navbar({
             </a>
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarLeft>
+
           <NavbarRight>
-            {actions.map((action, index) =>
-              action.isButton ? (
-                <>
-                  <SignedOut>
-                    <SignInButton mode="modal">
-                      <Button
-                        key={index}
-                        variant={action.variant || "default"}
-                      >
-                        {action.text}
+            {actions.map((action, index) => {
+              // prefer a stable id; fall back to text+index if none
+              const key = action.id ?? `${action.text}-${index}`;
+
+              return (
+                <React.Fragment key={key}>
+                  {action.isButton && action.isLogInBtn ? (
+                    <>
+                      <SignedOut>
+                        <SignInButton mode="modal">
+                          <Button variant={action.variant || "default"}>
+                            {action.text}
+                          </Button>
+                        </SignInButton>
+                      </SignedOut>
+
+                      <SignedIn>
+                        <SignOutButton>
+                          <Button variant="outline" className="cursor-pointer">Logout</Button>
+                        </SignOutButton>
+                      </SignedIn>
+                        <UserButton />
+                    </>
+                  ) : (
+                    // For other buttons or links
+                    <div>
+                      <Button variant={action.variant || "outline"}>
+                            <a href={action.href}>{action.text}</a>
                       </Button>
-                    </SignInButton>
-                  </SignedOut>
-                  <SignedIn>
-                    <UserButton />
-                    <SignOutButton>
-                      <Button
-                        key={index}
-                        variant="outline"
-                      >
-                        Logout
-                      </Button>
-                    </SignOutButton>
-                  </SignedIn>
-                </>
-              ) : (
-                <>
-                  {/* For other buttons or links */}
-                </>
-              )
-            )}
+                    </div>
+                  )}
+                </React.Fragment>
+              );
+            })}
+
             <Sheet>
               <SheetTrigger asChild>
                 <Button
@@ -118,6 +139,7 @@ export default function Navbar({
                   <span className="sr-only">Toggle navigation menu</span>
                 </Button>
               </SheetTrigger>
+
               <SheetContent side="right">
                 <nav className="grid gap-6 text-lg font-medium">
                   <a
@@ -126,9 +148,10 @@ export default function Navbar({
                   >
                     <span>{name}</span>
                   </a>
-                  {mobileLinks.map((link, index) => (
+
+                  {mobileLinks.map((link, idx) => (
                     <a
-                      key={index}
+                      key={link.href ?? `${link.text}-${idx}`}
                       href={link.href}
                       className="text-muted-foreground hover:text-foreground"
                     >

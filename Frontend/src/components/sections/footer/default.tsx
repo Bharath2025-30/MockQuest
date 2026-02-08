@@ -3,8 +3,6 @@ import { cn } from "@/lib/utils";
 import {
   Footer,
   FooterBottom,
-  FooterColumn,
-  FooterContent,
 } from "../../ui/footer";
 import { ModeToggle } from "../../ui/mode-toggle";
 import MockQuest from "../../logos/mockQuest";
@@ -32,74 +30,46 @@ interface FooterProps {
 export default function FooterSection({
   logo = <MockQuest/>,
   name = "Mock Quest",
-  columns = [
-    {
-      title: "Product",
-      links: [
-        { text: "Changelog", href: "" },
-        { text: "Documentation", href: "" },
-      ],
-    },
-    {
-      title: "Company",
-      links: [
-        { text: "About", href: "" },
-        { text: "Careers", href: "" },
-        { text: "Blog", href: "" },
-      ],
-    },
-    {
-      title: "Contact",
-      links: [
-        { text: "Discord", href: "" },
-        { text: "Twitter", href: "" },
-        { text: "Github", href: "" },
-      ],
-    },
-  ],
-  copyright = "© 2025 Mikołaj Dobrucki. All rights reserved",
+  copyright = "© 2025 Bharath Mokara. All rights reserved",
   policies = [
     { text: "Privacy Policy", href: "" },
     { text: "Terms of Service", href: "" },
   ],
-  showModeToggle = true,
+  showModeToggle = false,
   className,
 }: FooterProps) {
   return (
-    <footer className={cn("bg-background w-full px-4", className)}>
+    <footer className={cn("bg-background w-full px-4 py-6", className)}>
       <div className="max-w-container mx-auto relative">
         <Footer>
-          <FooterContent>
-            <FooterColumn className="col-span-2 sm:col-span-3 md:col-span-1">
-              <div className="flex items-center gap-2">
-                {logo}
-                <h3 className="text-xl font-bold">{name}</h3>
+          <FooterBottom>
+            {/* Mobile and Desktop Layout */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 w-full">
+              {/* Left Side: Logo and Copyright */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                {/* Logo and Name */}
+                <div className="flex items-center gap-2">
+                  {logo}
+                  <h3 className="text-xl font-bold">{name}</h3>
+                </div>
+
+                {/* Copyright */}
+                <div className="text-sm text-muted-foreground">{copyright}</div>
               </div>
-            </FooterColumn>
-            {columns.map((column, index) => (
-              <FooterColumn key={index}>
-                <h3 className="text-md pt-1 font-semibold">{column.title}</h3>
-                {column.links.map((link, linkIndex) => (
+
+              {/* Right Side: Policies and Mode Toggle */}
+              <div className="flex flex-wrap items-center gap-4 text-sm">
+                {policies.map((policy, index) => (
                   <a
-                    key={linkIndex}
-                    href={link.href}
-                    className="text-muted-foreground text-sm"
+                    key={index}
+                    href={policy.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {link.text}
+                    {policy.text}
                   </a>
                 ))}
-              </FooterColumn>
-            ))}
-          </FooterContent>
-          <FooterBottom>
-            <div>{copyright}</div>
-            <div className="flex items-center gap-4">
-              {policies.map((policy, index) => (
-                <a key={index} href={policy.href}>
-                  {policy.text}
-                </a>
-              ))}
-              {showModeToggle && <ModeToggle />}
+                {showModeToggle && <ModeToggle />}
+              </div>
             </div>
           </FooterBottom>
         </Footer>

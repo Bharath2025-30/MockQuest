@@ -42,11 +42,10 @@ export default function CTA({
         {buttons !== false && buttons.length > 0 && (
           <div className="flex justify-center gap-4">
             {buttons.map((button, index) => (
-              <>
+              <div key={index}>
                   <SignedOut>
                     <SignInButton mode="modal">
                       <Button
-                      key={index}
                       variant="default"
                       size="lg"
                     >
@@ -56,7 +55,6 @@ export default function CTA({
                   </SignedOut>
                   <SignedIn>
                     <Button
-                      key={index}
                       variant={button.variant || "default"}
                       size="lg"
                       asChild
@@ -68,7 +66,7 @@ export default function CTA({
                       </a>
                     </Button>
                   </SignedIn>
-                </>
+                </div>
             ))}
           </div>
         )}

@@ -90,7 +90,7 @@ export default function Problems({
                       <Button
                         size="sm"
                         variant="outline"
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 cursor-pointer"
                       >
                         Solve
                         <ChevronRightIcon className="size-4" />
